@@ -299,7 +299,7 @@ get_params:
 
 include 'system.tcl'
 
-include '..\version.tcl'
+include '../version.tcl'
 
 _copyright db 'Copyright (c) 2016, Scientech LLC',0xA,0
 
@@ -318,23 +318,23 @@ _passes_suffix db ' passes, ',0
 _seconds_suffix db ' seconds, ',0
 _bytes_suffix db ' bytes.',0xA,0
 
-include '..\errors.tcl'
-include '..\symbdump.tcl'
-include '..\preproce.tcl'
-include '..\parser.tcl'
-include '..\exprpars.tcl'
-include '..\assemble.tcl'
-include '..\exprcalc.tcl'
-include '..\formats.tcl'
-include '..\x86_64.tcl'
-include '..\avx.tcl'
+include '../errors.tcl'
+include '../symbdump.tcl'
+include '../preproce.tcl'
+include '../parser.tcl'
+include '../exprpars.tcl'
+include '../assemble.tcl'
+include '../exprcalc.tcl'
+include '../formats.tcl'
+include '../x86_64.tcl'
+include '../avx.tcl'
 
-include '..\tables.tcl'
-include '..\messages.tcl'
+include '../tables.tcl'
+include '../messages.tcl'
 
 section '.bss' writeable align 4
 
-include '..\variable.tcl'
+include '../variable.tcl'
 
 argc dd ?
 argv dd ?

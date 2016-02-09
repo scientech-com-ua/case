@@ -359,16 +359,16 @@ line_data_start db ':',0Dh,0Ah,0
 align 16
 first_segment:
 
-include '..\preproce.tcl'
-include '..\parser.tcl'
-include '..\exprpars.tcl'
+include '../preproce.tcl'
+include '../parser.tcl'
+include '../exprpars.tcl'
 
 align 16
 second_segment:
 
-include '..\exprcalc.tcl'
-include '..\errors.tcl'
-include '..\symbdump.tcl'
+include '../exprcalc.tcl'
+include '../errors.tcl'
+include '../symbdump.tcl'
 
 include 'system.tcl'
 
@@ -378,10 +378,10 @@ first_gate:
 	jmp	main+(second_segment shr 4):second_gate-second_segment
 first_segment_top = $ - first_segment
 
-include '..\assemble.tcl'
-include '..\formats.tcl'
-include '..\x86_64.tcl'
-include '..\avx.tcl'
+include '../assemble.tcl'
+include '../formats.tcl'
+include '../x86_64.tcl'
+include '../avx.tcl'
 
 second_gate:
 	call	assembler
@@ -404,12 +404,12 @@ else
  end if
 end if
 
-include '..\tables.tcl'
-include '..\messages.tcl'
+include '../tables.tcl'
+include '../messages.tcl'
 
 align 4
 
-include '..\variable.tcl'
+include '../variable.tcl'
 
 memory_setting dd ?
 start_time dd ?
