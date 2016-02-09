@@ -6,7 +6,7 @@
 include_variable db 'INCLUDE',0
 
 symbol_characters db 27
- db 9,0Ah,0Dh,1Ah,20h,'+-/*=<>()[]{}:,|&~?`#\'
+ db 9,0Ah,0Dh,1Ah,20h,'+-/*=<>()[]{}:,|&~!`#\'
 
 preprocessor_directives:
  db 6,'define'

@@ -1,5 +1,5 @@
 comment_marker equ '#'
-old_dies equ '?'
+old_dies equ '!'
 
 preprocessor:
 	mov	edi,characters
