@@ -1,17 +1,32 @@
-
 # CaseTcl interface for DOS
 # Copyright (c) 2016, Scientech LLC.
 # All rights reserved.
 
-	format	MZ
-	heap	0
-	stack	8000h
-	entry	main:start
+include '../packages/dos.tcl'
+include '../packages/asm.tcl'
+include '../version.tcl'
 
-include 'modes.tcl'
+align 16
+first_segment:
 
+include '../preproce.tcl'
+include '../parser.tcl'
+include '../exprpars.tcl'
+
+align 16
+second_segment:
+
+include '../exprcalc.tcl'
+include '../errors.tcl'
+include '../symbdump.tcl'
+
+heap	0
+stack	8000h
 segment main use16
+entry	main:start
 
+include '../interface.tcl'
+include '../messages.tcl'
 start:
 
 	mov	ax,ds
@@ -331,57 +346,12 @@ get_params:
 	clc
 	ret
 
-include '..\version.tcl'
-
-_logo db 'CaseTcl interpreter  version ',VERSION_STRING,24h
-_copyright db 'Copyright (c) 2016, Scientech LLC',0Dh,0Ah,0
-
-_usage db 0Dh,0Ah
-       db 'usage: case <source> [output]',0Dh,0Ah
-       db 'optional settings:',0Dh,0Ah
-       db ' -m <limit>         set the limit in kilobytes for the available memory',0Dh,0Ah
-       db ' -p <limit>         set the maximum allowed number of passes',0Dh,0Ah
-       db ' -d <name>=<value>  define symbolic variable',0Dh,0Ah
-       db ' -s <file>          dump symbolic information for debugging',0Dh,0Ah
-       db 0
-_memory_prefix db '  (',0
-_memory_suffix db ' kilobytes memory)',0Dh,0Ah,0
-_passes_suffix db ' passes, ',0
-_seconds_suffix db ' seconds, ',0
-_bytes_suffix db ' bytes.',0Dh,0Ah,0
-
-error_prefix db 'error: ',0
-error_suffix db '.'
-cr_lf db 0Dh,0Ah,0
-line_number_start db ' [',0
-line_data_start db ':',0Dh,0Ah,0
-
-align 16
-first_segment:
-
-include '../preproce.tcl'
-include '../parser.tcl'
-include '../exprpars.tcl'
-
-align 16
-second_segment:
-
-include '../exprcalc.tcl'
-include '../errors.tcl'
-include '../symbdump.tcl'
-
-include 'system.tcl'
 
 first_gate:
 	call	preprocessor
 	call	parser
 	jmp	main+(second_segment shr 4):second_gate-second_segment
 first_segment_top = $ - first_segment
-
-include '../assemble.tcl'
-include '../formats.tcl'
-include '../x86_64.tcl'
-include '../avx.tcl'
 
 second_gate:
 	call	assembler
@@ -403,9 +373,6 @@ else
   UNREAL_ENABLED = 1
  end if
 end if
-
-include '../tables.tcl'
-include '../messages.tcl'
 
 align 4
 

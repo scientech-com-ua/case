@@ -1,7 +1,10 @@
-
 # CaseTcl interface for DOS
 # Copyright (c) 2016, Scientech LLC.
 # All rights reserved.
+
+format	MZ
+
+include 'modes.tcl'
 
 go32:
 	use16
@@ -642,3 +645,10 @@ make_timestamp:
 	add	eax,ebx
 	adc	edx,0
 	ret
+
+error_prefix      db 'error: ',0
+error_suffix      db '.'
+cr_lf             db 0Dh,0Ah,0
+\n equ 0Dh,0Ah
+line_number_start db ' [',0
+line_data_start   db ':',0Dh,0Ah,0

@@ -3,6 +3,8 @@
 # Copyright (c) 2016, Scientech LLC.
 # All rights reserved.
 
+format	PE console
+
 CREATE_NEW	       = 1
 CREATE_ALWAYS	       = 2
 OPEN_EXISTING	       = 3
@@ -502,5 +504,6 @@ make_timestamp:
 error_prefix db 'error: ',0
 error_suffix db '.'
 cr_lf db 0Dh,0Ah,0
+\n equ 0Dh,0Ah
 line_number_start db ' [',0
 line_data_start db ':',0Dh,0Ah,0

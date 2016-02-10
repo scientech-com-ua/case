@@ -1,35 +1,22 @@
-
 # CaseTcl interface for Unix/libc
 # Copyright (c) 2016, Scientech LLC.
 # All rights reserved.
 
-	format	ELF
-	public	main
+include '../packages/libc.tcl'
+include '../packages/asm.tcl'
 
-macro ccall proc,[arg]
-  { common
-     local size 
-     size = 0 
-     mov ebp,esp
-     if ~ arg eq
-    forward
-     size = size + 4
-    common
-     sub esp,size
-     end if
-     and esp,-16
-     if ~ arg eq
-     add esp,size
-    reverse
-     pushd arg
-    common
-     end if
-     call proc 
-     mov esp,ebp }
+include '../version.tcl'
+include '../interface.tcl'
 
-extrn gettimeofday
+include '../errors.tcl'
+include '../symbdump.tcl'
+include '../preproce.tcl'
+include '../parser.tcl'
+include '../exprpars.tcl'
+include '../exprcalc.tcl'
+include '../messages.tcl'
 
-section '.text' executable align 16
+public	main
 
 main:
 	mov	ecx,[esp+4]
@@ -296,41 +283,6 @@ get_params:
 	stosb
 	clc
 	ret
-
-include 'system.tcl'
-
-include '../version.tcl'
-
-_copyright db 'Copyright (c) 2016, Scientech LLC',0xA,0
-
-_logo db 'CaseTcl interpreter  version ',VERSION_STRING,0
-_usage db 0xA
-       db 'usage: case <source> [output]',0xA
-       db 'optional settings:',0xA
-       db ' -m <limit>         set the limit in kilobytes for the available memory',0Dh,0Ah
-       db ' -p <limit>         set the maximum allowed number of passes',0Dh,0Ah
-       db ' -d <name>=<value>  define symbolic variable',0Dh,0Ah
-       db ' -s <file>          dump symbolic information for debugging',0Dh,0Ah
-       db 0
-_memory_prefix db '  (',0
-_memory_suffix db ' kilobytes memory)',0xA,0
-_passes_suffix db ' passes, ',0
-_seconds_suffix db ' seconds, ',0
-_bytes_suffix db ' bytes.',0xA,0
-
-include '../errors.tcl'
-include '../symbdump.tcl'
-include '../preproce.tcl'
-include '../parser.tcl'
-include '../exprpars.tcl'
-include '../assemble.tcl'
-include '../exprcalc.tcl'
-include '../formats.tcl'
-include '../x86_64.tcl'
-include '../avx.tcl'
-
-include '../tables.tcl'
-include '../messages.tcl'
 
 section '.bss' writeable align 4
 

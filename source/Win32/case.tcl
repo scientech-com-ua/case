@@ -1,9 +1,17 @@
-
 # CaseTcl interface for Win32
 # Copyright (c) 2016, Scientech LLC.
 # All rights reserved.
 
-	format	PE console
+include '../packages/win32.tcl'
+include '../packages/asm.tcl'
+
+include '../errors.tcl'
+include '../symbdump.tcl'
+include '../preproce.tcl'
+include '../parser.tcl'
+include '../exprpars.tcl'
+include '../exprcalc.tcl'
+include '../messages.tcl'
 
 section '.text' code readable executable
 
@@ -306,42 +314,10 @@ get_params:
 	clc
 	ret
 
-include 'system.tcl'
-
-include '../errors.tcl'
-include '../symbdump.tcl'
-include '../preproce.tcl'
-include '../parser.tcl'
-include '../exprpars.tcl'
-include '../assemble.tcl'
-include '../exprcalc.tcl'
-include '../formats.tcl'
-include '../x86_64.tcl'
-include '../avx.tcl'
-
-include '../tables.tcl'
-include '../messages.tcl'
-
 section '.data' data readable writeable
 
 include '../version.tcl'
-
-_copyright db 'Copyright (c) 2016, Scientech LLC',0Dh,0Ah,0
-
-_logo db 'CaseTcl interpreter  version ',VERSION_STRING,0
-_usage db 0Dh,0Ah
-       db 'usage: case <source> [output]',0Dh,0Ah
-       db 'optional settings:',0Dh,0Ah
-       db ' -m <limit>         set the limit in kilobytes for the available memory',0Dh,0Ah
-       db ' -p <limit>         set the maximum allowed number of passes',0Dh,0Ah
-       db ' -d <name>=<value>  define symbolic variable',0Dh,0Ah
-       db ' -s <file>          dump symbolic information for debugging',0Dh,0Ah
-       db 0
-_memory_prefix db '  (',0
-_memory_suffix db ' kilobytes memory)',0Dh,0Ah,0
-_passes_suffix db ' passes, ',0
-_seconds_suffix db ' seconds, ',0
-_bytes_suffix db ' bytes.',0Dh,0Ah,0
+include '../interface.tcl'
 
 align 4
 
